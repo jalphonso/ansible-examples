@@ -18,7 +18,7 @@
 
   tasks:
   - set_fact:
-      diff_path: "diff/"
+      diff_path: "diffs/"
       template_path: "templates/interfaces.j2"
       config_path: "configs/{{ inventory_hostname }}.conf"
 
