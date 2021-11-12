@@ -1,0 +1,49 @@
+{% if family.type is defined and family.type == 'inet' %}
+family inet {
+  {% if family.addresses is defined and family.addresses is iterable %}
+  {% for address in family.addresses %}
+  {% if address.arp_entries is defined and address.arp_entries is iterable %}
+    address {{ address.ip|ipv4('cidr') }} {
+    {% if address.preferred is defined and address.preferred %}
+        preferred;
+    {% endif %}
+    {% for arp_entry in address.arp_entries %}
+        arp {{ arp_entry.ip|ipv4('address') }} mac {{ arp_entry.mac|hwaddr('linux') }};
+    {% endfor %}
+    }
+  {% elif address.preferred is defined and address.preferred %}
+    address {{ address.ip|ipv4('cidr') }} {
+        preferred;
+    }
+  {% else %}
+    address {{ address.ip|ipv4('cidr') }};
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if family.input_filters is defined and family.input_filters is iterable %}
+  {% if family.input_filters | length > 1 %}
+    {% set input_filter_list = "[ " + family.input_filters | join(' ') + " ]" %}
+    filter {
+        input-list {{ input_filter_list }};
+    }
+  {% else %}
+    filter {
+        input {{ family.input_filters | first }};
+    }
+  {% endif %}
+  {% endif %}
+  {% if family.output_filters is defined and family.output_filters is iterable %}
+  {% if family.output_filters | length > 1 %}
+    {% set output_filter_list = "[ " + family.output_filters | join(' ') + " ]" %}
+    filter {
+        output-list {{ output_filter_list }};
+    }
+  {% else %}
+    filter {
+        output {{ family.output_filters | first }};
+    }
+  {% endif %}
+  {% endif %}
+}
+{% endif %}
+

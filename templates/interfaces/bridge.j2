@@ -1,0 +1,12 @@
+{% if family.type is defined and family.type == 'bridge' %}
+family bridge {
+{% if family.trunk %}
+    interface-mode trunk;
+{% endif %}
+{% if family.vlan is iterable %}
+    {% set vlan_list = "[ " + family.vlan | join(' ') + " ]" %}
+{% endif %}
+    vlan-id-list {{ vlan_list | family.vlan }};
+}
+{% endif %}
+

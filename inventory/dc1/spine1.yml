@@ -1,0 +1,7 @@
+---
+
+interfaces:
+  - description: to leaf1
+    name: xe-0/0/0
+    ip_cidr: 10.1.113.1/30
+    mtu: 9192

@@ -1,0 +1,11 @@
+---
+
+interfaces:
+  - description: to spine1
+    name: xe-0/0/0
+    ip_cidr: 10.1.113.2/30
+    mtu: 9192
+  - description: to server1
+    name: xe-0/0/3
+    
+    mtu: 9192

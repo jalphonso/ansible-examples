@@ -1,0 +1,23 @@
+{% if interface.aggregated_ether_options is defined %}
+aggregated-ether-options {
+  {% if interface.aggregated_ether_options.minimum_links is defined and interface.aggregated_ether_options.minimum_links is integer %}
+    minimum-links {{ interface.aggregated_ether_options.minimum_links }};
+  {% endif %}
+  {% if interface.aggregated_ether_options.link_speed is defined and interface.aggregated_ether_options.link_speed is string %}
+    link-speed {{ interface.aggregated_ether_options.link_speed }};
+  {% endif %}
+  {% if interface.aggregated_ether_options.lacp is defined %}
+    lacp {
+    {% if interface.aggregated_ether_options.lacp.active is defined and interface.aggregated_ether_options.lacp.active %}
+        active;
+    {% else %}
+        passive;
+    {% endif %}
+    {% if interface.aggregated_ether_options.lacp.periodic_fast is defined and interface.aggregated_ether_options.lacp.periodic_fast %}
+        periodic fast;
+    {% endif %}
+    }
+  {% endif %}
+}
+{% endif %}
+

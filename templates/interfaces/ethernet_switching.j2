@@ -1,0 +1,14 @@
+{% if family.type is defined and family.type == 'ethernet_switching' %}
+family ethernet-switching {
+{% if family.trunk %}
+    interface-mode trunk;
+{% endif %}
+{% if family.vlan is iterable %}
+    {% set vlan_list = "[ " + family.vlan | join(' ') + " ]" %}
+{% endif %}
+    vlan {
+        members {{ vlan_list | family.vlan }};
+    }
+}
+{% endif %}
+

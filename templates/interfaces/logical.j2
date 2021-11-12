@@ -1,0 +1,26 @@
+unit {{ unit.index }} {
+  {% if unit.peer_unit is defined and unit.peer_unit is integer %}
+    peer-unit {{ unit.peer_unit }};
+  {% endif %}
+  {% if unit.encapsulation is defined and unit.encapsulation is string %}
+    encapsulation {{ unit.encapsulation }};
+  {% endif %}
+  {% if unit.description is defined and unit.description is string %}
+    description "{{ unit.description }}";
+  {% endif %}
+  {% if unit.vlan_id is defined and unit.vlan_id is integer %}
+    vlan-id {{ unit.vlan_id }};
+  {% endif %}
+  {% if unit.families is defined and unit.families is iterable %}
+  {% filter indent(width=4,first=True) %}
+  {% for family in unit.families %}
+    {% include "common/interfaces/inet.j2" %}
+    {% include "common/interfaces/inet6.j2" %}
+    {% include "common/interfaces/bridge.j2" %}
+    {% include "common/interfaces/ethernet_switching.j2" %}
+    {% include "common/interfaces/mpls.j2" %}
+  {% endfor %}
+  {% endfilter %}
+  {% endif %}
+}
+

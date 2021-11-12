@@ -1,0 +1,16 @@
+lldp {
+    port-id-subtype interface-name;
+    neighbour-port-info-display port-id;
+  {% for interface in interfaces %}
+  {% if interface.lldp is defined and interface.lldp %}
+    interface {{ interface.name }};
+  {% endif %}
+  {% endfor %}
+    interface em0 {
+        disable;
+    }
+    interface em1 {
+        disable;
+    }
+}
+

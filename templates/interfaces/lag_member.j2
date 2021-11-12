@@ -1,0 +1,15 @@
+{% if platform is defined and platform == 'mx' %}
+gigether-options {
+{% else %}
+ether-options {
+{% endif %}
+  {% if interface.link_index is defined and interface.link_index is integer %}
+    802.3ad {
+        ae{{ interface.ae }};
+        link-index {{ interface.link_index }};
+    }
+  {% else %}
+    802.3ad ae{{ interface.ae }};
+  {% endif %}
+}
+

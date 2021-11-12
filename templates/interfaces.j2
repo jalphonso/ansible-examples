@@ -1,0 +1,34 @@
+interfaces {
+  {% for interface in interfaces %}
+    {{ interface.name }} {
+      {% if interface.description is defined and interface.description is string %}
+        description "{{ interface.description }}";
+      {% endif %}
+      {% if interface.promiscuous_mode is defined and interface.promiscuous_mode %}
+        promiscuous-mode;
+      {% endif %}
+      {% if interface.flexible_vlan_tagging is defined and interface.flexible_vlan_tagging %}
+        flexible-vlan-tagging;
+      {% endif %}
+      {% if interface.mtu is defined and interface.mtu is integer %}
+        mtu {{ interface.mtu }};
+      {% endif %}
+      {% if interface.mac is defined and interface.mac is string %}
+        mac {{ interface.mac }}
+      {% endif %}
+    {% filter indent(width=8,first=True) %}
+      {% if interface.name.startswith('ae') %}
+        {% include "common/interfaces/ae.j2" %}
+      {% elif interface.ae is defined and interface.ae is integer %}
+        {% include "common/interfaces/lag_member.j2" %}
+      {% endif %}
+      {% if interface.units is defined and interface.units is iterable %}
+        {% for unit in interface.units %}
+          {% include "common/interfaces/logical.j2" %}
+        {% endfor %}
+      {% endif %}
+    {% endfilter %}
+    }
+  {% endfor %}
+}
+
