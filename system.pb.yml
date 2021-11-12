@@ -18,7 +18,7 @@
 
   tasks:
   - set_fact:
-      output_path: "output/"
+      diff_path: "diff/"
       template_path: "templates/system.j2"
       config_path: "configs/{{ inventory_hostname }}.conf"
 
@@ -34,7 +34,7 @@
       passwd: "{{ passwd }}"
       load: replace
       src: "{{ config_path }}"
-      dest_dir: "{{ output_path }}"
+      dest_dir: "{{ diff_path }}"
       diff: true
       check: true
       commit: false

@@ -16,7 +16,7 @@
     passwd: "{{ passwd }}"
     load: replace
     src: "{{ config_path }}"
-    dest_dir: "{{ output_path }}"
+    dest_dir: "{{ diff_path }}"
     diff: true
     check: true
     commit: true
