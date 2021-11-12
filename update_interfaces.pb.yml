@@ -7,8 +7,9 @@
     - Juniper.junos
   tasks:
   - set_fact:
+      output_path: "output/"
       template_path: "templates/interfaces.j2"
-      config_path: "{{ inventory_dir }}/configs/{{ inventory_hostname }}.conf"
+      config_path: "configs/{{ inventory_hostname }}.conf"
 
   - name: Build config from template
     template:
@@ -18,9 +19,9 @@
   - name: Deploy config to Junos devices
     juniper_junos_config:
       host: "{{ inventory_hostname }}"
-      load: update
+      load: replace
       src: "{{ config_path }}"
-      dest_dir: "{{ inventory_dir }}/config_change_logs"
+      dest_dir: "{{ output_path }}"
       diff: true
       check: true
       commit: false

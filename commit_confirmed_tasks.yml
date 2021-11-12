@@ -11,16 +11,14 @@
 
 - name: Deploy config to Junos devices
   juniper_junos_config:
-    host: "{{ ansible_host }}"
-    load: update
+    host: "{{ inventory_hostname }}"
+    load: replace
     src: "{{ config_path }}"
-    dest_dir: "{{ inventory_dir }}/config_change_logs"
+    dest_dir: "{{ output_path }}"
     diff: true
     check: true
     commit: true
     confirmed: 2
-    port: "{{ netconf_port }}"
-    timeout: "{{ device_timeout }}"
   register: commit_confirm_result
 
 - name: Print error msg if reviewed config diff has changed
@@ -31,20 +29,16 @@
 
 - name: Wait 10 seconds for port "{{ netconf_port }}" to become open and contain "OpenSSH"
   wait_for:
-    port: "{{ netconf_port }}"
-    host: "{{ ansible_host }}"
+    host: "{{ inventory_hostname }}"
     search_regex: OpenSSH
     delay: 10
-    timeout: "{{ device_timeout }}"
   connection: local
   when: pre_commit_result.diff_lines == commit_confirm_result.diff_lines
 
 - name: Issuing commit check to confirm commit which finalizes changes
   juniper_junos_config:
-    host: "{{ ansible_host }}"
+    host: "{{ inventory_hostname }}"
     diff: false
     check: true
     commit: false
-    port: "{{ netconf_port }}"
-    timeout: "{{ device_timeout }}"
   when: pre_commit_result.diff_lines == commit_confirm_result.diff_lines
