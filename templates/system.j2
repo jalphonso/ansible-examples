@@ -1,15 +1,15 @@
 system {
     login {
-        user lab {
+        user jcluser {
             uid 2000;
             class super-user;
             authentication {
-                encrypted-password {{ lab_user_encrypted_pw }}; ## SECRET-DATA
+                encrypted-password {{ jcl_user_hash }}; ## SECRET-DATA
             }
         }
     }
     root-authentication {
-        encrypted-password {{ root_user_encrypted_pw }}; ## SECRET-DATA
+        encrypted-password {{ root_user_hash }}; ## SECRET-DATA
     }
     services {
         ssh {
