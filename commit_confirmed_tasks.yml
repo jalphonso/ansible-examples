@@ -12,6 +12,8 @@
 - name: Deploy config to Junos devices
   juniper_junos_config:
     host: "{{ inventory_hostname }}"
+    user: "{{ username }}"
+    passwd: "{{ passwd }}"
     load: replace
     src: "{{ config_path }}"
     dest_dir: "{{ output_path }}"
@@ -38,6 +40,8 @@
 - name: Issuing commit check to confirm commit which finalizes changes
   juniper_junos_config:
     host: "{{ inventory_hostname }}"
+    user: "{{ username }}"
+    passwd: "{{ passwd }}"
     diff: false
     check: true
     commit: false

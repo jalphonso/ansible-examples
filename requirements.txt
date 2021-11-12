@@ -5,6 +5,7 @@ cffi==1.15.0
 cryptography==35.0.0
 Jinja2==3.0.3
 junos-eznc==2.6.3
+jxmlease==1.0.3
 lxml==4.6.4
 MarkupSafe==2.0.1
 ncclient==0.6.9

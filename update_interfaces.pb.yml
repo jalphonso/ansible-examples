@@ -4,7 +4,18 @@
   connection: local
   gather_facts: no
   roles:
-    - Juniper.junos
+  - Juniper.junos
+
+  vars_prompt:
+  - name: username
+    prompt: Enter username
+    private: no
+
+  - name: passwd
+    prompt: Enter password
+    private: yes
+    confirm: no
+
   tasks:
   - set_fact:
       output_path: "output/"
@@ -19,6 +30,8 @@
   - name: Deploy config to Junos devices
     juniper_junos_config:
       host: "{{ inventory_hostname }}"
+      user: "{{ username }}"
+      passwd: "{{ passwd }}"
       load: replace
       src: "{{ config_path }}"
       dest_dir: "{{ output_path }}"
