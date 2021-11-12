@@ -29,9 +29,10 @@
           has changed. Someone else may have altered the config. Please try again."
   when: pre_commit_result.diff_lines != commit_confirm_result.diff_lines
 
-- name: Wait 10 seconds for port "{{ netconf_port }}" to become open and contain "OpenSSH"
+- name: Wait 10 seconds for port 830 to become open and contain "OpenSSH"
   wait_for:
     host: "{{ inventory_hostname }}"
+    port: 830
     search_regex: OpenSSH
     delay: 10
   connection: local
