@@ -6,3 +6,5 @@ test-machine
 test-machine.pub
 output/
 configs/
+.venv/
+venv/
