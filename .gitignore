@@ -1,5 +1,8 @@
 *.swp
 *.bak
 *.pyc
+*.log
 test-machine
 test-machine.pub
+output/
+configs/
