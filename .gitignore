@@ -1,0 +1,5 @@
+*.swp
+*.bak
+*.pyc
+test-machine
+test-machine.pub
