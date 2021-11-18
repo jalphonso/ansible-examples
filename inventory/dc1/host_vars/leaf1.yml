@@ -8,3 +8,6 @@ interfaces:
   - description: to server1
     name: xe-0/0/3
     mtu: 9192
+  - description: to server2
+    name: xe-0/0/4
+    mtu: 9192
